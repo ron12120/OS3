@@ -58,7 +58,7 @@ void handle_client(void *arg)
     pthread_mutex_unlock(&clients_mutex);
 
     close(sockfd);
-    free(arg);
+    
     pthread_exit(NULL);
 }
 
@@ -126,7 +126,7 @@ int main()
 
     // Start the server and accept clients using proactor
     pthread_t accept_thread;
-    proactor = proactor_create(MAX_CLIENTS);
+    proactor = proactor_create();
     if (pthread_create(&accept_thread, NULL, accept_clients, (void *)&server_fd) < 0)
     {
         perror("could not create accept thread");
